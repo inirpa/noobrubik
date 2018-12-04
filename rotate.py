@@ -5,13 +5,10 @@ import random
 def front_anti_clockwise(front_face, right_face, back_face, left_face, up_face, down_face):
 	anti_rotated_front_face = np.rot90(front_face)
 
-	temp_face = np.zeros([1, 3], dtype = int)
-
-	temp_face = right_face[:, 0]
-	right_face[:, 0] = down_face[0, :]
-	down_face[0, :] = left_face[:, 2]
-	left_face[:, 2] = up_face[2, :]
-	up_face[2, :] = temp_face
+	temp_face = np.zeros([3, 3], dtype = str)
+	temp_face[:] = down_face[:]
+	temp_face[0,0], temp_face[0,2] = temp_face[0,2], temp_face[0,0]
+	down_face[0, :], left_face[:, 2], up_face[2, :], right_face[:, 0]  =  left_face[:, 2], up_face[2, :], right_face[:, 0], temp_face[0, :]
 	return(anti_rotated_front_face, right_face, back_face, left_face, up_face, down_face)
 
 def front_clockwise(front_face, right_face, back_face, left_face, up_face, down_face):
@@ -19,13 +16,19 @@ def front_clockwise(front_face, right_face, back_face, left_face, up_face, down_
 
 	temp_face = np.zeros([3,3], dtype = str)
 	temp_face[:] = right_face[:]
+	temp_face[0,0], temp_face[2,0] = temp_face[2,0], temp_face[0,0]
 	right_face[:, 0], up_face[2, :], left_face[:, 2], down_face[0, :] =  up_face[2, :], left_face[:, 2], down_face[0, :], temp_face[:, 0]
-	# right_face[:, 0] = up_face[2, :]
-	# up_face[2, :] = left_face[:, 2]
-	# left_face[:, 2] = down_face[0, :]
-	# print(id(t_face))
-	# down_face[0, :] = t_face
 	return(rotated_front_face, right_face, back_face, left_face, up_face, down_face)
+
+def right_clockwise(front_face, right_face, back_face, left_face, up_face, down_face):
+	rotated_right_face = np.rot90(right_face, -1)
+
+	temp_face = np.zeros([3,3], dtype = str)
+	temp_face[:] = up_face[:]
+	temp_face[0,2], temp_face[2,2] = temp_face[2,2], temp_face[0,2]
+	back_face[0,0], back_face[2,0] = back_face[2,0], back_face[0,0]
+	up_face[:,2], front_face[:,2], down_face[:,2], back_face[:,0] = front_face[:,2], down_face[:,2], back_face[:,0], temp_face[:,2]
+	return(front_face, rotated_right_face, back_face, left_face, up_face, down_face)
 
 if __name__ == '__main__':
 	rubix_array = np.zeros([6,9], dtype = str)
@@ -42,7 +45,7 @@ if __name__ == '__main__':
 		['O','B','G','O','G','W','R','B','Y']
 	]
 	print("Orgial Scrambled Cube")
-	print(rubix_array)
+	print(np.reshape(rubix_array, (6,9)))
 	front_face = np.reshape(rubix_array[0], (3, 3))
 	right_face = np.reshape(rubix_array[1], (3, 3))
 	back_face = np.reshape(rubix_array[2], (3, 3))
@@ -50,6 +53,8 @@ if __name__ == '__main__':
 	up_face = np.reshape(rubix_array[4], (3, 3))
 	down_face = np.reshape(rubix_array[5], (3, 3))
 	# print("Face rotate anti-clockwise F'")
-	# print(np.reshape(Rotate.front_anti_clockwise(front_face, right_face, back_face, left_face, up_face, down_face), (6, 9)))
-	print("Face rotate clockwise F")
-	print(np.reshape(front_clockwise(front_face, right_face, back_face, left_face, up_face, down_face),(6, 9)))
+	# print(np.reshape(front_anti_clockwise(front_face, right_face, back_face, left_face, up_face, down_face), (6, 9)))
+	# print("Face rotate clockwise F")
+	# print(np.reshape(front_clockwise(front_face, right_face, back_face, left_face, up_face, down_face),(6, 9)))
+	print("Right rotate clockwise R")
+	print(np.reshape(right_clockwise(front_face, right_face, back_face, left_face, up_face, down_face),(6, 9)))
