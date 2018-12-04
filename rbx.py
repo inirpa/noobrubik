@@ -1,5 +1,5 @@
 import numpy as np
-from rotate import Rotate
+import Rotate
 import random
 
 if __name__ == '__main__':
