@@ -21,16 +21,22 @@ def flip_up(front_face, right_face, back_face, left_face, up_face, down_face):
 	temp_face = np.zeros([3, 3], dtype = str)
 	right_face = np.rot90(right_face, -1)
 	left_face = np.rot90(left_face, 1)
+	back_face = np.rot90(back_face, -1)
+	back_face = np.rot90(back_face, -1)
 	temp_face[:] = up_face[:]
-	front_face[:], down_face[:], back_face[:], up_face[:] = down_face[:], back_face[:],up_face[:], temp_face[:]
+	up_face[:], front_face[:], down_face[:], back_face[:] = front_face[:], down_face[:], back_face[:], temp_face[:]
 	return(front_face, right_face, back_face, left_face, up_face, down_face)
 
 def flip_down(front_face, right_face, back_face, left_face, up_face, down_face):
 	temp_face = np.zeros([3, 3], dtype = str)
 	right_face = np.rot90(right_face, 1)
+	back_face = np.rot90(back_face, -1)
+	back_face = np.rot90(back_face, -1)
+	down_face = np.rot90(down_face, -1)
+	down_face = np.rot90(down_face, -1)
 	left_face = np.rot90(left_face, -1)
 	temp_face[:] = up_face[:]
-	front_face[:], up_face[:], back_face[:], down_face[:] = up_face[:], back_face[:], down_face[:], temp_face[:]
+	up_face[:], back_face[:], down_face[:], front_face[:] = back_face[:], down_face[:], front_face[:], temp_face[:]
 	return(front_face, right_face, back_face, left_face, up_face, down_face)
 
 if __name__ == '__main__':
@@ -54,9 +60,9 @@ if __name__ == '__main__':
 
 	# print("Flip right ")
 	# print(np.reshape(flip_right(front_face, right_face, back_face, left_face, up_face, down_face),(6, 9)))
-	# print("Flip left ")
-	# print(np.reshape(flip_left(front_face, right_face, back_face, left_face, up_face, down_face),(6, 9)))
-	print("Flip up ")
-	print(np.reshape(flip_up(front_face, right_face, back_face, left_face, up_face, down_face),(6, 9)))
+	print("Flip left ")
+	print(np.reshape(flip_left(front_face, right_face, back_face, left_face, up_face, down_face),(6, 9)))
 	# print("Flip up ")
 	# print(np.reshape(flip_up(front_face, right_face, back_face, left_face, up_face, down_face),(6, 9)))
+	# print("Flip down ")
+	# print(np.reshape(flip_down(front_face, right_face, back_face, left_face, up_face, down_face),(6, 9)))
