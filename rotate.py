@@ -103,20 +103,6 @@ def down_anti_clockwise(front_face, right_face, back_face, left_face, up_face, d
 	front_face[2,:], right_face[2,:], back_face[2,:],left_face[2,:]  = right_face[2,:], back_face[2,:], left_face[2,:],temp_face[2,:]
 	return(front_face, right_face, back_face, left_face, up_face, rotated_down_face)
 
-def flip_right(front_face, right_face, back_face, left_face, up_face, down_face):
-	up_face = np.rot90(up_face, 1)
-	down_face = np.rot90(down_face, -1)
-	temp_face[:] = front_face[:]
-	front_face[:], left_face[:], back_face[:], right_face[:] = left_face[:], back_face[:], right_face[:], temp_face[:]
-	return(front_face, right_face, back_face, left_face, up_face, rotated_down_face)
-
-def flip_left(front_face, right_face, back_face, left_face, up_face, down_face):
-	up_face = np.rot90(up_face, -1)
-	down_face = np.rot90(down_face, 1)
-	temp_face[:] = front_face[:]
-	front_face[:], right_face[:], back_face[:], left_face[:] = right_face[:], back_face[:], left_face[:], temp_face[:]
-	return(front_face, right_face, back_face, left_face, up_face, rotated_down_face)
-
 if __name__ == '__main__':
 	rubix_array = np.zeros([6,9], dtype = str)
 	# color_array = ['W','G','Y','R','B','O']
