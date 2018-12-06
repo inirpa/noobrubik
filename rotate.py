@@ -1,7 +1,6 @@
 import numpy as np
 import random
 
-
 def front_anti_clockwise(front_face, right_face, back_face, left_face, up_face, down_face):
 	anti_rotated_front_face = np.rot90(front_face)
 
@@ -35,7 +34,6 @@ def right_anti_clockwise(front_face, right_face, back_face, left_face, up_face, 
 
 	temp_face = np.zeros([3,3], dtype = str)
 	temp_face[:] = up_face[:]
-	# temp_face[0,2], temp_face[2,2] = temp_face[2,2], temp_face[0,2]
 	back_face[0,0], back_face[2,0] = back_face[2,0], back_face[0,0]
 	down_face[0,2], down_face[2,2] = down_face[2,2], down_face[0,2]
 	up_face[:,2], back_face[:,0], down_face[:,2], front_face[:,2] = back_face[:,0], down_face[:,2], front_face[:,2], temp_face[:,2]
@@ -64,7 +62,6 @@ def back_clockwise(front_face, right_face, back_face, left_face, up_face, down_f
 	temp_face = np.zeros([3,3], dtype = str)
 	temp_face[:] = up_face[:]
 	temp_face[0,0], temp_face[0,2] = temp_face[0,2], temp_face[0,0]
-	# up_face[0,0], up_face[2,0] = up_face[2,0], up_face[0,0]
 	down_face[2,0], down_face[2,2] = down_face[2,2], down_face[2,0]
 	up_face[0,:], right_face[:,2],down_face[2,:],left_face[:,0] = right_face[:,2], down_face[2, :], left_face[:,0],temp_face[0,:]
 	return(front_face, right_face, rotated_back_face, left_face, up_face, down_face)
@@ -104,6 +101,20 @@ def down_anti_clockwise(front_face, right_face, back_face, left_face, up_face, d
 	temp_face = np.zeros([3,3], dtype = str)
 	temp_face[:] = front_face[:]
 	front_face[2,:], right_face[2,:], back_face[2,:],left_face[2,:]  = right_face[2,:], back_face[2,:], left_face[2,:],temp_face[2,:]
+	return(front_face, right_face, back_face, left_face, up_face, rotated_down_face)
+
+def flip_right(front_face, right_face, back_face, left_face, up_face, down_face):
+	up_face = np.rot90(up_face, 1)
+	down_face = np.rot90(down_face, -1)
+	temp_face[:] = front_face[:]
+	front_face[:], left_face[:], back_face[:], right_face[:] = left_face[:], back_face[:], right_face[:], temp_face[:]
+	return(front_face, right_face, back_face, left_face, up_face, rotated_down_face)
+
+def flip_left(front_face, right_face, back_face, left_face, up_face, down_face):
+	up_face = np.rot90(up_face, -1)
+	down_face = np.rot90(down_face, 1)
+	temp_face[:] = front_face[:]
+	front_face[:], right_face[:], back_face[:], left_face[:] = right_face[:], back_face[:], left_face[:], temp_face[:]
 	return(front_face, right_face, back_face, left_face, up_face, rotated_down_face)
 
 if __name__ == '__main__':
@@ -150,5 +161,5 @@ if __name__ == '__main__':
 	# print(np.reshape(up_anti_clockwise(front_face, right_face, back_face, left_face, up_face, down_face),(6, 9)))
 	# print("Down rotate clockwise D")
 	# print(np.reshape(down_clockwise(front_face, right_face, back_face, left_face, up_face, down_face),(6, 9)))
-	print("Down rotate anti clockwise D'")
-	print(np.reshape(down_anti_clockwise(front_face, right_face, back_face, left_face, up_face, down_face),(6, 9)))
+	# print("Down rotate anti clockwise D'")
+	# print(np.reshape(down_anti_clockwise(front_face, right_face, back_face, left_face, up_face, down_face),(6, 9)))
