@@ -58,9 +58,4 @@ if __name__ == '__main__':
 	down_face = np.reshape(rubix_array[5], (3, 3))
 	print("Flip up ")
 	print(flip_up(front_face, right_face, back_face, left_face, up_face, down_face))
-<<<<<<< HEAD
-	print(right_face)
-	# solve_corners(front_face, right_face, back_face, left_face, up_face, down_face)
-=======
 	solve_corners(front_face, right_face, back_face, left_face, up_face, down_face)
->>>>>>> 7d8340c33d707a28410f0efa2dfd4cdcfd805563
