@@ -9,10 +9,16 @@ def flip_up(front_face, right_face, back_face, left_face, up_face, down_face):
 	temp_face = np.rot90(temp_face, -1)
 	temp_face = np.rot90(temp_face, -1)
 	up_face[:], front_face[:], down_face[:], back_face[:] = front_face[:], down_face[:], back_face[:], temp_face[:]
-	return(front_face, right_face, back_face, left_face, up_face, down_face)
+	rubix_array = np.reshape([front_face, right_face, back_face, left_face, up_face, down_face],(6,9))
+	return(rubix_array)
 
-def solve_corners(front_face, right_face, back_face, left_face, up_face, down_face):
-	print(front_face, right_face, back_face, left_face, up_face, down_face)
+def solve_corners(rubix_array):
+	front_face = np.reshape(rubix_array[0], (3, 3))
+	right_face = np.reshape(rubix_array[1], (3, 3))
+	back_face = np.reshape(rubix_array[2], (3, 3))
+	left_face = np.reshape(rubix_array[3], (3, 3))
+	up_face = np.reshape(rubix_array[4], (3, 3))
+	down_face = np.reshape(rubix_array[5], (3, 3))
 	#flip cube make front face as up face
 	#check if corners are already solved
 	#check if corners has right color pieces
@@ -30,13 +36,28 @@ def solve_corners(front_face, right_face, back_face, left_face, up_face, down_fa
 	top_right_corner_adjacent = [right_face[0,2], back_face[0,0]]
 	bottom_left_corner_adjacent = [left_face[0,2], front_face[0,0]]
 	bottom_right_corner_adjacent = [front_face[0,2], right_face[0,0]]
-	# corner_adjacent_face = [top_left_corner_adjacent, top_right_corner_adjacent, bottom_left_corner_adjacent, bottom_right_corner_adjacent]	
-	# for rows in range(0,3):
-	# 	for cols in range(0,3):
-	# 		if(up_face[rows, cols] == up_center_piece):
-	# 			print("Top layer solved")
-	# 		else:
-	# 			print("Top layer needs workout")
+	side_arary = {'front':front_center_piece, 'right':right_center_piece, 'back':back_center_piece, 'left':left_center_piece}
+	corner_adjacent_face = [top_left_corner_adjacent, top_right_corner_adjacent, bottom_left_corner_adjacent, bottom_right_corner_adjacent]
+	for rows in range(0,3):
+		for cols in range(0,3):
+			if(up_face[rows, cols] == up_center_piece):
+				top_layer_solved = True
+			else:
+				top_layer_solved = False
+	face_array = [front_face, right_face, back_face, left_face]
+	center_piece_array = [front_center_piece, right_center_piece, back_center_piece, left_center_piece]
+	index = 0
+	match = 0
+	for face in face_array:
+		for y in range(0,3):
+			if(face[0,y] == center_piece_array[index]):
+				match += 1
+				print('match at 0 ' + str(y))
+			else:
+				print('no match at 0 ' + str(y))
+		index += 1
+	print(match)
+
 
 if __name__ == '__main__':
 	rubix_array = np.zeros([6,9], dtype = str)
@@ -56,6 +77,6 @@ if __name__ == '__main__':
 	left_face = np.reshape(rubix_array[3], (3, 3))
 	up_face = np.reshape(rubix_array[4], (3, 3))
 	down_face = np.reshape(rubix_array[5], (3, 3))
-	print("Flip up ")
-	print(flip_up(front_face, right_face, back_face, left_face, up_face, down_face))
-	solve_corners(front_face, right_face, back_face, left_face, up_face, down_face)
+	# print("Flip up ")
+	rubix_array = flip_up(front_face, right_face, back_face, left_face, up_face, down_face)
+	solve_corners(rubix_array)
