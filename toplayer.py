@@ -30,8 +30,7 @@ def solve_corners(front_face, right_face, back_face, left_face, up_face, down_fa
 	top_right_corner_adjacent = [right_face[0,2], back_face[0,0]]
 	bottom_left_corner_adjacent = [left_face[0,2], front_face[0,0]]
 	bottom_right_corner_adjacent = [front_face[0,2], right_face[0,0]]
-	# corner_adjacent_face = [top_left_corner_adjacent, top_right_corner_adjacent, bottom_left_corner_adjacent, bottom_right_corner_adjacent]
-	
+	# corner_adjacent_face = [top_left_corner_adjacent, top_right_corner_adjacent, bottom_left_corner_adjacent, bottom_right_corner_adjacent]	
 	# for rows in range(0,3):
 	# 	for cols in range(0,3):
 	# 		if(up_face[rows, cols] == up_center_piece):
@@ -59,5 +58,9 @@ if __name__ == '__main__':
 	down_face = np.reshape(rubix_array[5], (3, 3))
 	print("Flip up ")
 	print(flip_up(front_face, right_face, back_face, left_face, up_face, down_face))
+<<<<<<< HEAD
 	print(right_face)
 	# solve_corners(front_face, right_face, back_face, left_face, up_face, down_face)
+=======
+	solve_corners(front_face, right_face, back_face, left_face, up_face, down_face)
+>>>>>>> 7d8340c33d707a28410f0efa2dfd4cdcfd805563
