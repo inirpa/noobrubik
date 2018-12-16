@@ -1,4 +1,5 @@
 import numpy as np
+from pieces import Pieces
 def flip_up(front_face, right_face, back_face, left_face, up_face, down_face):
 	temp_face = np.zeros([3, 3], dtype = str)
 	right_face = np.rot90(right_face, -1)
@@ -12,6 +13,12 @@ def flip_up(front_face, right_face, back_face, left_face, up_face, down_face):
 	rubix_array = np.reshape([front_face, right_face, back_face, left_face, up_face, down_face],(6,9))
 	return(rubix_array)
 
+def find_corner(corner_pieces, corner_triplet):
+	print(corner_triplet)
+	print(corner_pieces)
+	for corner in range(0,8):
+		if(set(corner_pieces[corner]) == set(corner_triplet)):
+			print("position found at corner "+ str(corner+1))
 def solve_corners(rubix_array):
 	front_face = np.reshape(rubix_array[0], (3, 3))
 	right_face = np.reshape(rubix_array[1], (3, 3))
@@ -46,17 +53,40 @@ def solve_corners(rubix_array):
 				top_layer_solved = False
 	face_array = [front_face, right_face, back_face, left_face]
 	center_piece_array = [front_center_piece, right_center_piece, back_center_piece, left_center_piece]
-	index = 0
-	match = 0
-	for face in face_array:
-		for y in range(0,3):
-			if(face[0,y] == center_piece_array[index]):
-				match += 1
-				print('match at 0 ' + str(y))
-			else:
-				print('no match at 0 ' + str(y))
-		index += 1
-	print(match)
+	corner_pieces = Pieces.corner_pieces(rubix_array)
+	if(corner_pieces[0] == [front_center_piece, left_center_piece, up_center_piece]):
+		print("corner 1 solved")
+	else:
+		print("solve corner 1")
+		# print(corner_pieces[0], [front_center_piece, left_center_piece, up_center_piece])
+		find_corner(corner_pieces, [front_center_piece, left_center_piece, up_center_piece])
+	# if(corner_pieces[1] == [front_center_piece, right_center_piece, up_center_piece]):
+	# 	print("corner 2 solved")
+	# else:
+	# 	print("solve corner 2")
+	# 	print(corner_pieces[1], [front_center_piece, right_center_piece, up_center_piece])
+	# if(corner_pieces[4] == [right_center_piece, back_center_piece, up_center_piece]):
+	# 	print("corner 2 solved")
+	# else:
+	# 	print("solve corner 5")
+	# 	print(corner_pieces[4], [right_center_piece, back_center_piece, up_center_piece])
+	# if(corner_pieces[5] == [back_center_piece, left_center_piece, up_center_piece]):
+	# 	print("corner 2 solved")
+	# else:
+	# 	print("solve corner 6")
+	# 	print(corner_pieces[5], [back_center_piece, left_center_piece, up_center_piece])			
+	# index = 0
+	# match = 0
+	# for face in face_array:
+	# 	for y in range(0,3):
+	# 		if(face[0,y] == center_piece_array[index]):
+	# 			match += 1
+	# 			print('match at 0 ' + str(y))
+	# 		else:
+	# 			print('no match at 0 ' + str(y))
+	# 	index += 1
+	# print(match)
+	
 
 
 if __name__ == '__main__':
